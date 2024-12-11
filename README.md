@@ -1,3 +1,3 @@
 # DjangoAdvCourseProj
-a basic events management project\n
+a basic events management project,
 will try to get it ready for the retake, life happened...
