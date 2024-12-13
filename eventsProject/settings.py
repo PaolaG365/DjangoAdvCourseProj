@@ -45,6 +45,7 @@ THIRD_PARTY_APPS = [
     'cloudinary_storage',
     'taggit',
     'rest_framework',
+    'django_celery_beat',
 ]
 
 PROJECT_APPS = [
@@ -185,3 +186,7 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10,
 }
+
+CELERY_BROKER_URL = 'redis://localhost:6379/0'  # Redis database 0
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+
