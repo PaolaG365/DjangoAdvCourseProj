@@ -18,10 +18,12 @@ class CustomUser(models.Model):
     display_name = models.CharField(
         max_length=150,
         blank=True,
+        null=True,
     )
 
     bio = models.TextField(
         blank=True,
+        null=True,
     )
 
     picture = CloudinaryField(

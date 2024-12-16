@@ -55,6 +55,10 @@ class Event(models.Model):
         auto_now_add=True,
     )
 
+    last_updated = models.DateTimeField(
+        auto_now=True,
+    )
+
     event_info = models.TextField(
         blank=True,
         null=True,

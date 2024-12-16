@@ -52,6 +52,7 @@ PROJECT_APPS = [
     'eventsProject.accounts',
     'eventsProject.eventar',
     'eventsProject.common',
+    'eventsProject.comments',
 ]
 
 INSTALLED_APPS = [
