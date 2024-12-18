@@ -5,6 +5,9 @@ from django.utils.translation import gettext_lazy as _
 class CustomUserManager(BaseUserManager):
     use_in_migrations = True
 
+    def get_queryset(self):
+        return super().get_queryset().filter(is_active=True)
+
     def _create_user(self, email, password=None, **extra_fields):
         if not email:
             raise ValueError(_('Users must have an email address'))

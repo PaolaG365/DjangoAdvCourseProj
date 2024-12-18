@@ -56,6 +56,20 @@ class UserProfile(models.Model):
         editable=False,
     )
 
+    is_active = models.BooleanField(
+        default=True,
+    )
+
+    def delete(self, *args, **kwargs):
+        self.is_active = False
+        self.user.delete()
+        self.save()
+
+    def reactivate(self):
+        self.is_active = True
+        self.user.reactivate()
+        self.save()
+
     class Meta:
         verbose_name = "User Profile"
         verbose_name_plural = "User Profiles"
@@ -64,12 +78,16 @@ class UserProfile(models.Model):
         ]
 
     def save(self, *args, **kwargs):
-        nick = slugify(str(self.user.email.split('@')[0][:6]))
-        self.slug = f"{nick}-{uuid.uuid4().hex}"
+        if not self.slug:
+            nick = slugify(str(self.user.email.split('@')[0][:6]))
+            nick = nick.replace('_', '-')
+            self.slug = f"{nick}-{uuid.uuid4().hex}"
         super().save(*args, **kwargs)
 
     def __str__(self):
-        if self.display_name:
+        if not self.is_active:
+            user_display_name = "Deleted User"
+        elif self.display_name:
             user_display_name = self.display_name
         else:
             user_display_name = self.user.email

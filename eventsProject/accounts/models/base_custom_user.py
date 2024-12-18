@@ -25,3 +25,11 @@ class BaseCustomUser(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = []
 
     objects = CustomUserManager()
+
+    def delete(self, *args, **kwargs):
+        self.is_active = False
+        self.save()
+
+    def reactivate(self, *args, **kwargs):
+        self.is_active = True
+        self.save()

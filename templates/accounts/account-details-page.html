@@ -1,10 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'index.html' %}
+{% load l10n %}
+{% load static %}
 
-</body>
-</html>
+{% block title %}{{ form_title }} Profile{% endblock %}
+
+{% block content %}
+
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header">
+            <h2>{{ object.display_name|default:object.user.email }}</h2>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-4">
+                <!-- Profile Picture -->
+                {% if object.picture %}
+                  <img src="{{ object.picture.url }}" alt="{{ object.display_name }}" class="img-fluid rounded-3">
+                {% else %}
+                  <img src="{% static 'images/profile_pic.png' %}" alt="Profile picture placeholder" class="img-fluid rounded-3">
+                {% endif %}
+              </div>
+              <div class="col-md-8">
+                <h5>Bio</h5>
+                <p>{{ object.bio|default:"This user has no bio." }}</p>
+
+                <h5>Location</h5>
+                <p>{{ object.location|default:"Location not provided." }}</p>
+
+                <h5>Email</h5>
+                <p>{{ object.user.email }}</p>
+
+                <h5>Joined on</h5>
+                <p>{{ object.user.date_joined|localize }}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="text-center">
+              <a href="{% url 'edit-profile' user.userprofile.slug %}" class="btn btn-primary" role="button">Edit Profile</a>
+              <a href="{% url 'delete-profile' user.userprofile.slug %}" class="btn btn-danger" role="button">Delete Profile</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+{% endblock %}

@@ -46,6 +46,8 @@ THIRD_PARTY_APPS = [
     'taggit',
     'rest_framework',
     'django_celery_beat',
+    'crispy_forms',
+    'crispy_bootstrap5',
 ]
 
 PROJECT_APPS = [
@@ -191,3 +193,4 @@ REST_FRAMEWORK = {
 CELERY_BROKER_URL = 'redis://localhost:6379/0'  # Redis database 0
 CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
 
+CRISPY_TEMPLATE_PACK = 'bootstrap5'
