@@ -4,8 +4,14 @@ from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import gettext_lazy as _
 
 from eventsProject.accounts.forms import BaseUserCreationForm, BaseUserChangeForm
+from eventsProject.accounts.models import UserProfile
 
 UserModel = get_user_model()
+
+@admin.register(UserProfile)
+class CustomUserAdmin(admin.ModelAdmin):
+    list_display = ("user", "display_name", "location", "date_created", "last_updated")
+    search_fields = ("display_name", "user__email", "location")
 
 @admin.register(UserModel)
 class BaseCustomUserAdmin(UserAdmin):
@@ -29,7 +35,10 @@ class BaseCustomUserAdmin(UserAdmin):
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('email', 'password1', 'password2', 'is_active', 'is_staff'),
+            'fields': ('email', 'password1', 'password2', 'is_active', 'is_staff', 'groups'),
         }),
     )
+
+
+
 

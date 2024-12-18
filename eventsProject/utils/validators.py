@@ -51,13 +51,10 @@ class FileValidator:
         self.ALLOWED_EXTENSIONS = allowed_extensions or self.ALLOWED_EXTENSIONS
 
     def __call__(self, file):
-        """
-        Validates the file extension based on the ALLOWED_EXTENSIONS attribute.
-        """
         if not file:
             return
 
-        file_extension = file.name.split('.')[-1].lower()
+        file_extension = file.format.lower() if hasattr(file, 'format') else file.name.split('.')[-1]
         if file_extension not in self.ALLOWED_EXTENSIONS:
             raise ValidationError(
                 f"Invalid file type: {file_extension}. Allowed types: {', '.join(self.ALLOWED_EXTENSIONS)}"
